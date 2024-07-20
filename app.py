@@ -88,12 +88,15 @@ def predict_disease():
 
     with torch.no_grad():
         outputs = model_disease(image)
+        print(outputs[0])
         a, preds = torch.max(outputs, 1)
+        print(a, preds)
         predicted_disease_id = preds.item()
         predicted_disease = disease_names[predicted_disease_id]
         print(predicted_disease)
 
-    return jsonify({'classML': predicted_disease_id, 'real_name': predicted_disease})
+    response = f"{outputs[0]}"
+    return jsonify({'response': f"{response[8:(len(response) - 2)]}"})
 
 
 @app.route('/predict/plant', methods=['POST'])
