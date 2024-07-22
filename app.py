@@ -128,6 +128,7 @@ def predict():
         print(len(outputs[0]))
         a, preds = torch.max(outputs, 1)
         print(a)
+        response = f"{a}"
         print(preds)
         predicted_class = preds.item()
         print('Predicted class:', predicted_class)
@@ -138,7 +139,7 @@ def predict():
         print("Предсказание выполнено")
 
     print("Отправка ответа")
-    return jsonify({'classML': predicted, 'real_name': real_name})
+    return jsonify({'classML': predicted, 'real_name': real_name, 'accuracy': f"{response[8:(len(response) - 2)]}"})
 
 if __name__ == '__main__':
     app.run(host ="0.0.0.0", debug=True, port=8000)
