@@ -34,14 +34,14 @@ image_datasets = {
 model_plant = models.resnet50(weights='DEFAULT')
 num_ftrs = model_plant.fc.in_features
 model_plant.fc = nn.Linear(num_ftrs, 102)
-model_plant.load_state_dict(torch.load('model_best_accuracy.pth', map_location=torch.device('mps')))
+model_plant.load_state_dict(torch.load('model_best_accuracy.pth', map_location="cpu"))
 model_plant.eval()
 
 
 model_disease = models.resnet50(weights='DEFAULT')
 num_disease_ftrs = model_disease.fc.in_features
 model_disease.fc = nn.Linear(num_disease_ftrs, 6)
-model_disease.load_state_dict(torch.load('disease_model_best_accuracy.pth', map_location=torch.device('mps')))
+model_disease.load_state_dict(torch.load('disease_model_best_accuracy.pth', map_location="cpu"))
 model_disease.eval()
 
 def preprocess_disease_image(image):
